@@ -1,3 +1,5 @@
+# Alumno: Matheo Cardozo
+# Parcial 1 / Programacion 1
 
 herramientas = []
 existencias = []
@@ -33,20 +35,20 @@ Opcion: """)
 
             for i in range(cantidad):                                               # Segun la cantidad de herramientas a cargar
                 herramienta = input("Por favor, ingrese el nombre de la herramienta a agregar al sistema: ").strip().capitalize()
-                while not herramienta.isalpha():
+                while not herramienta.isalpha():        # Vuelve a pedir el ingreso si la entrada es invalida
                     herramienta = input("Error, ingrese un nombre valido: ").strip().capitalize()
-                while herramienta in herramientas:
+                while herramienta in herramientas:      # Vuelve a pedir otra herramienta si la ingresada ya se encuentra en el sistema
                     herramienta = input("Error, la herramienta ya se encuentra en el sistema. Por favor ingrese otra herramienta: ").strip().capitalize()
-                herramientas.append(herramienta)
-                existencias.append(0)
+                herramientas.append(herramienta)        # Agrega a la lista de los nombres
+                existencias.append(0)       # Inicializa la cantidad de la herramienta ingresada en 0
                 print("Se ha cargado exitosamente al sistema!")
 
         case 2:         # Carga de existencias
 
             if len(herramientas)>0:     # Verifica que existan herramientas cargadas al sistema
-                for i in range(len(herramientas)):      
+                for i in range(len(herramientas)):      # Segun la cantidad de herramientas en la lista
                     cant_exist = input(f"Ingrese la cantidad de unidades de {herramientas[i]} a ingresar: ")
-                    while not cant_exist.isdigit():
+                    while not cant_exist.isdigit():     # Captura y vuelve a pedir cantidades en caso de que la entrada sea invalida
                         cant_exist = input("Error, ingrese una cantidad valida: ")
                     existencias[i] += int(cant_exist)
                     print(f"Se han agregado {cant_exist} unidades exitosamente!")
@@ -55,22 +57,20 @@ Opcion: """)
 
         case 3:         # Visualizacion de inventario
 
-            if len(herramientas)>0:
+            if len(herramientas)>0:     # Verifica que hayan herramientas cargadas en la lista
                 print("----------- INVENTARIO --------------")
-                for i in range(len(herramientas)):
+                for i in range(len(herramientas)):      # Por cada herramienta en lista
                     print(f"| - Herramienta: {herramientas[i]} -> Stock: {existencias[i]}")
             else:
                 print("Error. No hay herramientas cargadas al sistema.")
             
-        case 4:
+        case 4:         # Consulta de stock
             
-            if len(herramientas)<1:
+            if len(herramientas)<1:     # Verifica que no hayan herramientas en lista
                 print("Sistema vacio. Primero cargue herramientas.")
-            elif len(existencias)<1:
-                print("Sin stock actualmente. Primero actualice el stock.")
             else:
                 busqueda = input("Ingrese el nombre de la herramienta a buscar: ")
-                while not busqueda.isalpha():
+                while not busqueda.isalpha():       # Captura de ingreso invalido
                     busqueda = input("Error, ingrese un nombre valido: ")
                 busqueda = busqueda.strip().capitalize()
                 if busqueda in herramientas:
@@ -79,8 +79,9 @@ Opcion: """)
                     print(f"La herramienta {busqueda} no se encuentra dentro del sistema.")
 
         
-        case 5:
-            if 0 in existencias:
+        case 5:         # Reporte de agotados
+
+            if 0 in existencias:        # Si hay ceros en la lista de existencias entonces imprime el reporte
                 print("| HERRAMIENTAS SIN STOCK |")
                 for i in range(len(existencias)):
                     if existencias[i] == 0:
@@ -88,10 +89,11 @@ Opcion: """)
             else:
                 print("No hay herramientas sin stock.")
 
-        case 6:
+        case 6:         # Alta de nuevo producto
+            
             herramienta = input("Ingrese el nombre de la herramienta: ")
             cant_exist = input("Ingrese la cantidad de unidades a cargar de la herramienta: ")
-            if not herramienta.isalpha():
+            if not herramienta.isalpha():       
                 print("Error, el nombre ingresado es invalido.")
             elif herramienta.strip().capitalize() in herramientas:
                 print("Error, la herramienta ya se encuentra en el sistema.")
@@ -102,7 +104,7 @@ Opcion: """)
                 existencias.append(int(cant_exist))
                 print("Herramienta y stock actualizado exitosamente!")
         
-        case 7:
+        case 7:         # Actualizacion de stock (venta/ingreso)
 
             op_venta = input("Venta o Ingreso de mercadería? (V/I): ").strip().upper()      # Decision sobre venta o reposicion, disminucion o aumento de stock
             while not op_venta.isalpha():       # Verificacion de string
@@ -147,11 +149,11 @@ Opcion: """)
             else:
                 print("Error. Ingreso una opcion invalida.")
         
-        case 8:
+        case 8:         # Salir
 
             print("Cerrando sesion - ¡Gracias por usar el sistema!")
             fin_sist = True
 
-        case _:
+        case _:         # Opcion invalida
 
             print("Error. Ingresa una opcion valida (1 - 8)")
